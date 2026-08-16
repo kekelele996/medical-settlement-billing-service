@@ -66,7 +66,7 @@ func (r *UploadBatchRepository) ExistsByClientInsuredDate(clientID, insuredID ui
 	end := start.AddDate(0, 0, 1)
 	var count int64
 	err := r.db.Model(&model.UploadBatch{}).
-		Where("client_id = ? AND insured_person_id = ? AND created_at >= ? AND created_at < ?", clientID, insuredID, start, end).
+		Where("client_id = ? AND insured_person_id = ? AND created_at >= ? AND created_at < ?", clientID, insuredID, end, start).
 		Count(&count).Error
 	return count > 0, err
 }
