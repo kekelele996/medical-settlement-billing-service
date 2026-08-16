@@ -116,7 +116,7 @@ func (s *SettlementService) ReverseSettlement(ctx context.Context, settlementNo 
 	order, err := s.orderRepo.FindByNo(settlementNo)
 	if err != nil {
 		if errors.Is(err, util.ErrNotFound) {
-			return nil, util.InternalError(constants.MsgSettlementNotFound, err)
+			return nil, util.NotFoundError(constants.MsgSettlementNotFound, err)
 		}
 		return nil, err
 	}
@@ -146,7 +146,7 @@ func (s *SettlementService) GetOrder(ctx context.Context, settlementNo string) (
 	order, err := s.orderRepo.FindByNo(settlementNo)
 	if err != nil {
 		if errors.Is(err, util.ErrNotFound) {
-			return nil, util.InternalError(constants.MsgSettlementNotFound, err)
+			return nil, util.NotFoundError(constants.MsgSettlementNotFound, err)
 		}
 		return nil, err
 	}
