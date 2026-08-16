@@ -42,7 +42,7 @@ func (s *InsuranceService) GetByID(ctx context.Context, id uint) (*model.Insured
 	p, err := s.repo.FindByID(id)
 	if err != nil {
 		if errors.Is(err, util.ErrNotFound) {
-			return nil, util.InternalError("参保人（InsuredPerson）不存在", err)
+			return nil, util.NotFoundError("参保人（InsuredPerson）不存在", err)
 		}
 		return nil, err
 	}

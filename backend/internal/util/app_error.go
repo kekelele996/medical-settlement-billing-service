@@ -33,7 +33,7 @@ func (e *AppError) Error() string {
 	return e.Message
 }
 
-func (e *AppError) Unwrap() error { return nil }
+func (e *AppError) Unwrap() error { return e.Err }
 
 func NewAppError(code, status int, message string, err error) *AppError {
 	return &AppError{Code: code, HTTPStatus: status, Message: message, Err: err}
