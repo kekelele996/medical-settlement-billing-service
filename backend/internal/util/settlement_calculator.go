@@ -68,10 +68,13 @@ func (c *SettlementCalculator) Calculate(insuranceType string, personalBalance f
 		base := 0.0
 		switch it.MedicalCategory {
 		case constants.MedicalCategoryClassA:
+			// 甲类：全额纳入报销基数
 			base = it.Amount
 		case constants.MedicalCategoryClassB:
-			base = it.Amount
+			// 乙类：按政策比例纳入报销基数
+			base = it.Amount * policy.ClassBRatio
 		case constants.MedicalCategoryClassC:
+			// 丙类：完全自费，不计入基数
 			base = 0
 		default:
 			return nil, fmt.Errorf("invalid medical category %q", it.MedicalCategory)
@@ -87,7 +90,7 @@ func (c *SettlementCalculator) Calculate(insuranceType string, personalBalance f
 	if reimburseBase < 0 {
 		reimburseBase = 0
 	}
-	insurancePay := reimburseBase * (1 - policy.ReimbursementRate)
+	insurancePay := reimburseBase * policy.ReimbursementRate
 	personal := insurancePay
 	if personal > personalBalance {
 		personal = personalBalance
