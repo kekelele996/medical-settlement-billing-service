@@ -102,7 +102,7 @@ func (s *FeeService) Upload(ctx context.Context, input UploadInput) (*UploadResu
 	}
 
 	batch.TotalAmount = round2(total)
-	batch.ItemCount = len(items) + 1
+	batch.ItemCount = len(items)
 	batch.UploadStatus = constants.UploadValidated
 	err = s.batchRepo.Transaction(func(tx *gorm.DB) error {
 		if err := s.batchRepo.WithTx(tx).Create(batch); err != nil {
