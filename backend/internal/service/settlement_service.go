@@ -120,11 +120,14 @@ func (s *SettlementService) ReverseSettlement(ctx context.Context, settlementNo 
 		}
 		return nil, err
 	}
+	if order.Status == constants.SettlementReversed {
+		return nil, util.ConflictError(constants.MsgReverseAlready, errors.New("already reversed"))
+	}
 	if order.SettledAt == nil || time.Since(*order.SettledAt) > 24*time.Hour {
 		return nil, util.NewAppError(constants.CodeReverseNotToday, 409, constants.MsgReverseNotToday, errors.New("not same day"))
 	}
 	now := time.Now()
-	order.Status = constants.SettlementFailed
+	order.Status = constants.SettlementReversed
 	order.ReversedAt = &now
 	if err := s.orderRepo.Update(order); err != nil {
 		return nil, util.LogError(s.log, constants.LOG_SETTLEMENT_REVERSE_FAILED, fmt.Errorf("update settlement order: %w", err))
