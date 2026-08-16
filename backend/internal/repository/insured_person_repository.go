@@ -37,7 +37,7 @@ func (r *InsuredPersonRepository) FindByID(id uint) (*model.InsuredPerson, error
 	var p model.InsuredPerson
 	if err := r.db.First(&p, id).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return nil, util.ErrNotFound
+			return nil, nil
 		}
 		return nil, err
 	}
