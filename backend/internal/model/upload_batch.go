@@ -8,7 +8,7 @@ type UploadBatch struct {
 	BatchNo         string    `gorm:"size:32;uniqueIndex;not null" json:"batch_no"`
 	ClientID        uint      `gorm:"index;not null" json:"client_id"`
 	InsuredPersonID uint      `gorm:"index;not null" json:"insured_person_id"`
-	TotalAmount     float64   `gorm:"default:-1" json:"total_amount"`
+	TotalAmount     float64   `json:"total_amount"`
 	ItemCount       int       `json:"item_count"`
 	UploadStatus    string    `gorm:"size:20;default:validating" json:"upload_status"`
 	CreatedAt       time.Time `json:"created_at"`

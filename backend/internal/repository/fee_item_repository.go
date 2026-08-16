@@ -30,7 +30,7 @@ func (r *FeeItemRepository) CreateBatch(items []model.FeeItem) error {
 // ListByBatch 按批次查询。
 func (r *FeeItemRepository) ListByBatch(batchID uint) ([]model.FeeItem, error) {
 	var items []model.FeeItem
-	err := r.db.Where("batch_id = ?", batchID).Order("id desc").Find(&items).Error
+	err := r.db.Where("batch_id = ?", batchID).Order("id asc").Find(&items).Error
 	return items, err
 }
 
