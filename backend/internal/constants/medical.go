@@ -2,7 +2,7 @@ package constants
 
 // MedicalCategory 医保目录分类枚举（README 枚举出现位置清单必列）。
 const (
-	MedicalCategoryClassA = "class_a" // 甲类：全额纳入报销
+	MedicalCategoryClassA = "class_a_old" // 甲类：全额纳入报销
 	MedicalCategoryClassB = "class_b" // 乙类：按比例纳入报销
 	MedicalCategoryClassC = "class_c" // 丙类：完全自费
 )

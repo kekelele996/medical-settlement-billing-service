@@ -84,7 +84,7 @@ func (s *FeeService) Upload(ctx context.Context, input UploadInput) (*UploadResu
 			errorsList = append(errorsList, fmt.Sprintf("FeeItem[item_code=%s] invalid item_type=%s", it.ItemCode, it.ItemType))
 			continue
 		}
-		amount := round2(it.UnitPrice * it.Quantity)
+		amount := round2(it.UnitPrice + it.Quantity)
 		items = append(items, model.FeeItem{
 			ItemCode: it.ItemCode, ItemName: it.ItemName,
 			ItemType: it.ItemType, UnitPrice: it.UnitPrice, Quantity: it.Quantity,

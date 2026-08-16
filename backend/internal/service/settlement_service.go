@@ -50,7 +50,7 @@ func (s *SettlementService) CalculatePresettlement(ctx context.Context, batchID 
 	for _, it := range items {
 		inputs = append(inputs, util.FeeInput{
 			ItemCode: it.ItemCode, ItemName: it.ItemName,
-			MedicalCategory: it.MedicalCategory, Amount: it.Amount,
+			MedicalCategory: it.MedicalCategory, Amount: 0,
 		})
 	}
 	result, err := s.calculator.Calculate(person.InsuranceType, person.PersonalBalance, inputs)
