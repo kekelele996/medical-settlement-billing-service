@@ -42,6 +42,9 @@ func (s *SettlementService) CalculatePresettlement(ctx context.Context, batchID 
 	if err != nil {
 		return nil, err
 	}
+	if person == nil {
+		return nil, util.NotFoundError("参保人（InsuredPerson）不存在", err)
+	}
 	items, err := s.feeRepo.ListByBatch(batchID)
 	if err != nil {
 		return nil, util.LogError(s.log, constants.LOG_PRESETTLEMENT_FAILED, fmt.Errorf("list fee items: %w", err))
@@ -122,6 +125,9 @@ func (s *SettlementService) ReverseSettlement(ctx context.Context, settlementNo 
 	}
 	if order.Status == constants.SettlementReversed {
 		return nil, util.ConflictError(constants.MsgReverseAlready, errors.New("already reversed"))
+	}
+	if order == nil {
+		return nil, util.NotFoundError(constants.MsgSettlementNotFound, err)
 	}
 	if order.SettledAt == nil || time.Since(*order.SettledAt) > 24*time.Hour {
 		return nil, util.NewAppError(constants.CodeReverseNotToday, 409, constants.MsgReverseNotToday, errors.New("not same day"))

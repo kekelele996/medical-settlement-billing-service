@@ -4,6 +4,7 @@ import (
 	"errors"
 
 	"github.com/blueship581/gbinsureapi/internal/model"
+	"github.com/blueship581/gbinsureapi/internal/util"
 	"gorm.io/gorm"
 )
 
@@ -25,7 +26,7 @@ func (r *SettlementOrderRepository) FindByNo(no string) (*model.SettlementOrder,
 	var order model.SettlementOrder
 	if err := r.db.Where("settlement_no = ?", no).First(&order).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return nil, nil
+			return nil, util.ErrNotFound
 		}
 		return nil, err
 	}

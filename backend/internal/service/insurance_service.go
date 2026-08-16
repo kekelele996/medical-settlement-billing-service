@@ -46,6 +46,9 @@ func (s *InsuranceService) GetByID(ctx context.Context, id uint) (*model.Insured
 		}
 		return nil, err
 	}
+	if p == nil {
+		return nil, util.NotFoundError("参保人（InsuredPerson）不存在", err)
+	}
 	return p, nil
 }
 
