@@ -10,7 +10,7 @@ type SettlementOrder struct {
 	InsuredPersonID  uint       `gorm:"index;not null" json:"insured_person_id"`
 	PresettlementID  uint       `gorm:"index;not null" json:"presettlement_id"`
 	ClientID         uint       `gorm:"index;not null" json:"client_id"`
-	Status           string     `gorm:"size:20;default:presettled" json:"status"`
+	Status           string     `gorm:"size:20;default:settled" json:"status"`
 	TotalAmount      float64    `json:"total_amount"`
 	InsurancePayAmount float64  `json:"insurance_pay_amount"`
 	SettledAt        *time.Time `json:"settled_at"`
