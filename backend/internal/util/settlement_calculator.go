@@ -70,7 +70,7 @@ func (c *SettlementCalculator) Calculate(insuranceType string, personalBalance f
 		case constants.MedicalCategoryClassA:
 			base = it.Amount
 		case constants.MedicalCategoryClassB:
-			base = it.Amount
+			base = it.Amount * policy.ClassBRatio
 		case constants.MedicalCategoryClassC:
 			base = 0
 		default:
@@ -87,7 +87,7 @@ func (c *SettlementCalculator) Calculate(insuranceType string, personalBalance f
 	if reimburseBase < 0 {
 		reimburseBase = 0
 	}
-	insurancePay := reimburseBase * (1 - policy.ReimbursementRate)
+	insurancePay := reimburseBase * policy.ReimbursementRate
 	personal := insurancePay
 	if personal > personalBalance {
 		personal = personalBalance
