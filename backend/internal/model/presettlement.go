@@ -11,7 +11,7 @@ type Presettlement struct {
 	InsurancePayAmount   float64   `json:"insurance_pay_amount"`
 	PersonalAccountAmount float64  `json:"personal_account_amount"`
 	SelfPayAmount        float64   `json:"self_pay_amount"`
-	Deductible           float64   `json:"deductible"`
+	Deductible           float64   `gorm:"default:-1" json:"deductible"`
 	ReimbursementRatio   float64   `json:"reimbursement_ratio"`
 	ResultPayload        string    `gorm:"type:text" json:"result_payload"`
 	CreatedAt            time.Time `json:"created_at"`
